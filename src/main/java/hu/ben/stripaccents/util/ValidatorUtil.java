@@ -28,7 +28,10 @@ public final class ValidatorUtil {
     }
 
     private static void validateIfArgumentIsValidPath(String[] arguments) {
-        if (!new File(Constants.WORKING_DIRECTORY + arguments[0]).exists()) {
+        if (
+            !isFileExistsInWorkingDirectory(arguments[0])
+            && !isFileExists(arguments[0])
+        ) {
             throw new ArgumentsNotValidException(MessageFormat.format(
                 "Given path [{0}] does not exists!",
                 arguments[0]
@@ -37,13 +40,32 @@ public final class ValidatorUtil {
     }
 
     private static void validateIfArgumentIsDirectory(String[] arguments) {
-        if (!new File(Constants.WORKING_DIRECTORY + arguments[0]).isFile()) {
+        if (
+            !isArgumentInWorkingDirectoryIsFile(arguments[0])
+            && !isFile(arguments[0])
+        ) {
             throw new ArgumentsNotValidException(
                 MessageFormat.format(
                     "Given path [{0}] is not a file!",
                     arguments[0]
                 ));
         }
+    }
+
+    public static boolean isFileExistsInWorkingDirectory(String argument) {
+        return new File(Constants.WORKING_DIRECTORY + argument).exists();
+    }
+
+    public static boolean isFileExists(String argument) {
+        return new File(argument).exists();
+    }
+
+    private static boolean isArgumentInWorkingDirectoryIsFile(String argument) {
+        return new File(Constants.WORKING_DIRECTORY + argument).isFile();
+    }
+
+    private static boolean isFile(String argument) {
+        return new File(argument).isFile();
     }
 
 }

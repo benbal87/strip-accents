@@ -9,14 +9,11 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import hu.ben.stripaccents.constant.Constants;
-
 public class Converter {
 
     private static final String pattern = "[^\\p{ASCII}]";
 
-    public void convertFile(String fileName) {
-        File file = new File(Constants.WORKING_DIRECTORY + fileName);
+    public void convertFile(File file) {
         List<String> convertedLines = stripAccentedCharacters(file);
 
         try {
