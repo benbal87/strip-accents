@@ -17,7 +17,7 @@ public class Converter {
         List<String> convertedLines = stripAccentedCharacters(file);
 
         try {
-            FileUtils.writeLines(file, convertedLines);
+            FileUtils.writeLines(file, StandardCharsets.UTF_8.name(), convertedLines);
         } catch (IOException e) {
             e.printStackTrace();
         }
